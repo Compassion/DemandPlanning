@@ -10,6 +10,10 @@ body {
     background-color: white;
 }
 
+tr > td:focus, tr > td:hover {
+    box-shadow: inset 0 0 6px lightblue;
+}
+
 .tele-bg {
     background-image: url("tele.jpg");
     background-size: cover;
