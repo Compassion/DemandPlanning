@@ -5,10 +5,12 @@
 */
 define('ENVIRONMENT', 'test');
 
+
 /*
     Set your partner id.
 */
 define('PARTNER_ID', 'AU');
+
 
 /*
     Set your API key.
@@ -36,6 +38,6 @@ default :
     $url = 'https://api2.compassion.com/test/ci/v2/am/demandplanning?api_key=' .API_KEY;;
 
 }
-
 define('REST_URL', $url);
+
 ?>
