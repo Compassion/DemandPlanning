@@ -4,7 +4,7 @@
 var data = {
     'GlobalPartnerWeeklyDemandRequest' : [
         {
-            'GlobalPartnerId' : 'AU',
+            'GlobalPartnerId' : window.GlobalPartnerId,
             'GlobalPartnerWeeklyDemands' : []
         }
     ]
@@ -88,7 +88,7 @@ function parseDataTablesforJSON(dataTables) {
     var data = {
         'GlobalPartnerWeeklyDemandRequest' : [
             {
-                'GlobalPartnerId' : 'AU',
+                'GlobalPartnerId' : window.GlobalPartnerId,
                 'GlobalPartnerWeeklyDemands' : []
             }
         ]
@@ -111,8 +111,6 @@ function parseDataTablesforJSON(dataTables) {
     data.GlobalPartnerWeeklyDemandRequest[0].GlobalPartnerWeeklyDemands.push(weeklyDemands);
     
     return data;    
-    
-    
 }
 
 /* Add Jquery listeners for changes on cells */ 

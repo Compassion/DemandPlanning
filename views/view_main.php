@@ -61,6 +61,7 @@
         </div>
     </div>
     <!-- Scripts -->  
+    <script type="text/javascript">var GlobalPartnerId = '<?= PARTNER_ID ?>';</script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/t/bs/jqc-1.12.0,dt-1.10.11,b-1.1.2,fh-3.1.1/datatables.min.js"></script>

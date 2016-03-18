@@ -13,10 +13,33 @@ class DemandPlanning
     }
     public function loadJSON()
     {
+        $string = file_get_contents("json/template.json");
+        var_dump(json_decode($string));
+        
         return true;
     }
-    public function saveJSON()
+    public function saveJSON(data)
     {
+        
+        $day = date('w');
+        // Week start date - Sunday.
+        $week_start = date('Y-m-d', strtotime('-'.$day.' days'));
+        //$week_end = date('Y-m-d', strtotime('+'.(6-$day).' days'));
+        
+        $fileName = $week_start ."_" .PARTNER_ID ."_DemandPlanning.json";
+        
+        
+        $file = 'json/' .$fileName;
+        $contents = data;
+        
+        
+        
+        if(file_exists($file));
+        
+        
+        
+        
+        //$puts = file_put_contents($file, $contents, FILE_USE_INCLUDE_PATH);
         return true;
     }
     public function submitToGMC()

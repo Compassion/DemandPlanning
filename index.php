@@ -1,6 +1,12 @@
 <?php
 
     include("classes/Class_DemandPlanning.php");
+    include("classes/config.php");
+
+
+        $DemandPlanning = new DemandPlanning;
+        $DemandPlanning->saveJSON();
+        //$DemandPlanning->loadJSON();
 
 
     if(isset($_POST['load'])) {
