@@ -43,8 +43,8 @@ function generateDateJSON(numWeeks) {
         var obj = {};
         obj.WeekStartDate = formatDate(firstday);
         obj.WeekEndDate = formatDate(lastday);
-        obj.TotalDemand = '<input type="text" id="row-' + i + '-demand" name="row-' + i + '-demand" value="0">';
-        obj.ResupplyQuantity = '<input type="text" id="row-' + i + '-resupply" name="row-' + i + '-resupply" value="0">';;
+        obj.TotalDemand = 0; //'<input type="text" id="row-' + i + '-demand" name="row-' + i + '-demand" value="0">';
+        obj.ResupplyQuantity = 0; //'<input type="text" id="row-' + i + '-resupply" name="row-' + i + '-resupply" value="0">';;
         
         GlobalPartnerWeeklyDemandsTemplate.push(obj);
         
@@ -75,14 +75,57 @@ function parseJSONforDataTables(json) {
         var weekNum = i+1;
         var obj = data[i];
         
-        console.log(obj);
+        //console.log(obj);
         
-        var arr = [weekNum, obj.WeekStartDate, obj.WeekEndDate, obj.TotalDemand, obj.ResupplyQuantity, 'OK'];
+        var arr = [weekNum, obj.WeekStartDate, obj.WeekEndDate, obj.TotalDemand, obj.ResupplyQuantity];
         arrs.push(arr);
     }
-    console.log(arrs);
-    return arrs;
+    //console.log(arrs);
+    return arrs; 
+}
+
+function parseDataTablesforJSON(dataTables) {
+    var data = {
+        'GlobalPartnerWeeklyDemandRequest' : [
+            {
+                'GlobalPartnerId' : 'AU',
+                'GlobalPartnerWeeklyDemands' : []
+            }
+        ]
+    };
+
+    var weeklyDemands = [];
     
+    for(i = 0; i < dataTables.length; i++) {
+        var obj = {};
+        var row = dataTables[i];
+        
+        obj.WeekStartDate = row[1];
+        obj.WeekEndDate = row[2];
+        obj.TotalDemand = row[3];
+        obj.ResupplyQuantity = row[4];
+        
+        weeklyDemands.push(obj);
+    }
+    
+    data.GlobalPartnerWeeklyDemandRequest[0].GlobalPartnerWeeklyDemands.push(weeklyDemands);
+    
+    return data;    
+    
+    
+}
+
+/* Add Jquery listeners for changes on cells */ 
+function tableRowUpdateListener(table) {
+    $('tr').on('blur', 'input, [contenteditable]', function (e) {
+        var closestTd = $(this).closest('td');
+        if (closestTd.length > 0) {
+            var aPos = table.fnGetPosition(closestTd[0]);
+            table.fnUpdate(closestTd.html(), aPos[0], aPos[2], false);
+        }
+    });
+    
+    return;
 }
 
 /* Do everything on INIT 
@@ -101,7 +144,23 @@ $(function() {
     data = buildData(data);
     
     var tableData = parseJSONforDataTables(data);
-    console.log(tableData);
+    //console.log(tableData);
 
     table.fnAddData(tableData);
+    
+    table.on( 'draw.dt', function () {
+        $('tr td:nth-child(4), tr td:nth-child(5)').attr('contenteditable','true');
+        tableRowUpdateListener(table);
+        
+        console.log('change');
+    });
+    
+    tableRowUpdateListener(table);
+    $('tr td:nth-child(4), tr td:nth-child(5)').attr('contenteditable','true');
+    
+    $('#export-btn').click(function(e) {
+        $('#export-text').text(JSON.stringify(parseDataTablesforJSON(table.fnGetData())));
+    });
+    
+    
 });
