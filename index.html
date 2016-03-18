@@ -19,7 +19,7 @@
             <table class="table table-striped" id="demandTable">
               <thead>
                 <tr>
-                  <th>Date</th>
+                  <th>Week Number</th>
                   <th>Week Start</th>
                   <th>Week End</th>
                   <th>Demand</th>
@@ -36,51 +36,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/t/bs/jqc-1.12.0,dt-1.10.11,b-1.1.2,fh-3.1.1/datatables.min.js"></script>
-    <script>        
-    $(document).ready(
-        function() {
-        $('#demandTable').DataTable({
-        "ordering": false,
-        "info":     false   
-        });
-        } 
-    );
-        
-    $(document).ready(
-        function() {
-        //Build an array containing Customer records.
-        var customers = new Array();
-        customers.push([1, "John Hammond", "United States", "United States", "United States", "United States"]);
-        customers.push([2, "Mudassar Khan", "India", "United States", "United States", "United States"]);
-        customers.push([3, "Suzanne Mathews", "France", "United States", "United States", "United States"]);
-        customers.push([4, "Robert Schidner", "Russia", "United States", "United States", "United States"]);
-        customers.push([4, "Robert Schidner", "Russia", "United States", "United States", "United States"]);
-        customers.push([4, "Robert Schidner", "Russia", "United States", "United States", "United States"]);
-        customers.push([4, "Robert Schidner", "Russia", "United States", "United States", "United States"]);
-        customers.push([4, "Robert Schidner", "Russia", "United States", "United States", "United States"]);
-        customers.push([1, "John Hammond", "United States", "United States", "United States", "United States"]);
-        customers.push([2, "Mudassar Khan", "India", "United States", "United States", "United States"]);
-        customers.push([3, "Suzanne Mathews", "France", "United States", "United States", "United States"]);
-        customers.push([4, "Robert Schidner", "Russia", "United States", "United States", "United States"]);
-        customers.push([4, "Robert Schidner", "Russia", "United States", "United States", "United States"]);
-        customers.push([4, "Robert Schidner", "Russia", "United States", "United States", "United States"]);
-        customers.push([4, "Robert Schidner", "Russia", "United States", "United States", "United States"]);
-        customers.push([4, "Robert Schidner", "Russia", "United States", "United States", "United States"]);
-        customers.push([1, "John Hammond", "United States", "United States", "United States", "United States"]);
-        customers.push([2, "Mudassar Khan", "India", "United States", "United States", "United States"]);
-        customers.push([3, "Suzanne Mathews", "France", "United States", "United States", "United States"]);
-        customers.push([4, "Robert Schidner", "Russia", "United States", "United States", "United States"]);
-        customers.push([4, "Robert Schidner", "Russia", "United States", "United States", "United States"]);
-        customers.push([4, "Robert Schidner", "Russia", "United States", "United States", "United States"]);
-        customers.push([4, "Robert Schidner", "Russia", "United States", "United States", "United States"]);
-        customers.push([4, "Robert Schidner", "Russia", "United States", "United States", "United States"]);
 
-        // Get Table element
-        var table = document.getElementById("demandTable");
-        // Add the data
-        $('#demandTable').dataTable().fnAddData(customers);
-        }
-    );
-    </script>
+    <script src="js/app.js"></script>
   </body>
 </html>
