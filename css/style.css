@@ -10,8 +10,11 @@ body {
     background-color: white;
 }
 
-tr > td:focus, tr > td:hover {
-    box-shadow: inset 0 0 6px lightblue;
+tr > td:nth-child(5):focus, tr > td:nth-child(5):hover, 
+tr > td:nth-child(4):focus, tr > td:nth-child(4):hover {
+    -webkit-box-shadow: inset 0px 0px 7px 1px rgba(222,222,222,1);
+    -moz-box-shadow: inset 0px 0px 7px 1px rgba(222,222,222,1);
+    box-shadow: inset 0px 0px 7px 1px rgba(222,222,222,1);
 }
 
 .tele-bg {
