@@ -43,8 +43,8 @@ function generateDateJSON(numWeeks) {
         var obj = {};
         obj.WeekStartDate = formatDate(firstday);
         obj.WeekEndDate = formatDate(lastday);
-        obj.TotalDemand = 0;
-        obj.ResupplyQuantity = 0;
+        obj.TotalDemand = '<input type="text" id="row-' + i + '-demand" name="row-' + i + '-demand" value="0">';
+        obj.ResupplyQuantity = '<input type="text" id="row-' + i + '-resupply" name="row-' + i + '-resupply" value="0">';;
         
         GlobalPartnerWeeklyDemandsTemplate.push(obj);
         
@@ -63,7 +63,7 @@ function buildData(shell) {
 }
 
 /*
-    Data tables likes an array of arrars. The JSON from GME is an array of objects with properties. 
+    DataTables likes an array of arrays. The JSON from GME is an array of objects with properties. 
     Need to transform this data into an easily tabular format which is what this does.
 */
 function parseJSONforDataTables(json) {
@@ -90,11 +90,18 @@ function parseJSONforDataTables(json) {
     Will build that out in future.
 */
 $(function() {
+    table = $('#demandTable').dataTable( {
+        "paging":       true,
+        "ordering":     false,
+        "searching":    false,
+        "info":         false,
+        "autowidth":    true,
+    } );
+
     data = buildData(data);
     
     var tableData = parseJSONforDataTables(data);
     console.log(tableData);
-    
-    $('#demandTable').dataTable().fnAddData(tableData);
-    
+
+    table.fnAddData(tableData);
 });
