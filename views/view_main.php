@@ -38,6 +38,7 @@
         
       <div class="row">
          <div class="col-md-8 col-md-offset-2">
+               <div id="ajaxResponse"></div>
                 <table class="table table-striped table-responsive" id="demandTable">
                   <thead>
                     <tr>
@@ -56,6 +57,7 @@
         <div class="row">
             <div class="col-md-offset-2 col-md-8">
                 <button class="btn btn-primary btn-lg" id="export-btn">Export</button>
+                <button class="btn btn-success btn-lg" id="save-btn">Save</button>
                 <p id="export-text"></p>
             </div>
         </div>

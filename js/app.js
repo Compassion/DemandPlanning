@@ -10,6 +10,8 @@ var data = {
     ]
 };
 
+var table;
+
 /* Format the date in yyyy-mm-dd format from a js date object */
 function formatDate(date) {
     var d = new Date(date),
@@ -130,21 +132,70 @@ function tableRowUpdateListener(table) {
     Ideally most of this will be handled in an AJAX request.
     Will build that out in future.
 */
+
+function makeAjaxCall(thing, data) {
+    var data = { [thing] : data }
+    
+    // Do the Ajax
+    $.ajax({
+        type: "POST",
+        url: "",
+        data: data,
+        success: function(resp) {
+            //console.log(resp);
+            $('#ajaxResponse').html(resp);
+        },
+        error: function(resp) {
+            console.log('Error');
+            console.log(resp);
+            $('#ajaxResponse').html(resp);
+        }
+    }); // Ajax Call  
+}
+
+function loadJSONdata() {
+    var data = { 'load' : 'data' }
+    
+    // Do the Ajax
+    $.ajax({
+        type: "POST",
+        url: "",
+        data: data,
+        success: function(resp) {
+            data = JSON.parse(resp);
+            //console.log(data);
+            //console.log(typeof(data));
+            table.fnAddData(parseJSONforDataTables(data));
+        },
+        error: function(resp) {
+            console.log('Error');
+            console.log(resp);
+            $('#ajaxResponse').html(resp);
+        }
+    }); // Ajax Call  
+    
+}
+
 $(function() {
+    //data = JSON.parse(loadJSONdata());
+    
     table = $('#demandTable').dataTable( {
         "paging":       true,
         "ordering":     false,
         "searching":    false,
         "info":         false,
         "autowidth":    true,
-    } );
-
+    });
+    /*
     data = buildData(data);
     
     var tableData = parseJSONforDataTables(data);
     //console.log(tableData);
 
     table.fnAddData(tableData);
+    */
+    
+    loadJSONdata();
     
     table.on( 'draw.dt', function () {
         $('tr td:nth-child(4), tr td:nth-child(5)').attr('contenteditable','true');
@@ -158,6 +209,11 @@ $(function() {
     
     $('#export-btn').click(function(e) {
         $('#export-text').text(JSON.stringify(parseDataTablesforJSON(table.fnGetData())));
+    });
+    
+    $('#save-btn').click(function(e) {
+        var data = JSON.stringify(parseDataTablesforJSON(table.fnGetData()));
+        makeAjaxCall('save', data); 
     });
     
     

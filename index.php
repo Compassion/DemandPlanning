@@ -3,24 +3,25 @@
     include("classes/Class_DemandPlanning.php");
     include("classes/config.php");
 
-
-        $DemandPlanning = new DemandPlanning;
-        //$DemandPlanning->saveJSON();
-        //$DemandPlanning->loadJSON();
-
-
+    //var_dump($_POST);
     if(isset($_POST['load'])) {
         $DemandPlanning = new DemandPlanning;
-        //$DemandPlanning->loadJSON();
+        echo $DemandPlanning->loadJSON();
+        
+        $DemandPlanning->displayMessages();
+        
         
     } elseif(isset($_POST['save'])) {
         $DemandPlanning = new DemandPlanning;
-        //$DemandPlanning = $DemandPlanning->saveJSON($_POST);
+        $DemandPlanning->saveJSON($_POST['save']);
+        
+        $DemandPlanning->displayMessages();
         
         
     } elseif(isset($_POST['submit'])) {
         $DemandPlanning = new DemandPlanning;
-        //$DemandPlanning = $DemandPlanning->submitToGMC();
+        $DemandPlanning->submitToGMC();
+        
         
     } else {
         

@@ -10,7 +10,7 @@ class DemandPlanning
     public function __construct()
     {
         // Create anything useful
-        $this->recentFileName = $this->generateFileName();
+        $this->generateFileName();
     }
     
     private function generateFileName()
@@ -27,40 +27,66 @@ class DemandPlanning
     
     public function loadJSON()
     {
-        $string = file_get_contents("json/template.json");
-        var_dump(json_decode($string));
         
-        return true;
+        //$string = file_get_contents("json/template.json");
+        //var_dump(json_decode($string));
+        
+        // Check for the most recently modifed file
+        $path = "json"; 
+
+        $latest_mtime = 0;
+        $latest_filename = '';    
+
+        $d = dir($path);
+        while (false !== ($entry = $d->read())) {
+          $filepath = "{$path}/{$entry}";
+          // could do also other checks than just checking whether the entry is a file
+          if (is_file($filepath) && filemtime($filepath) > $latest_mtime) {
+            $latest_mtime = filemtime($filepath);
+            $latest_filename = $entry;
+          }
+        }
+        
+        $filePath = 'json/' .$latest_filename;
+        
+        $file = fopen($filePath, 'r') or die($this->errors[] = "<strong>Unable to open file.</strong> Failure...");
+        
+        $loadedData = fread($file, filesize($filePath));
+        fclose($file);
+        //var_dump($latest_filename);
+        //var_dump(date('Y-m-d h:m:s', $latest_mtime));
+        
+        //var_dump(readdir (resource 'json'));
+        
+        
+        //$filePath = 'json/' .$this->recentFileName;
+        //if(file_exists($filePath)) {
+        //    
+        //} 
+        
+        //var_dump($loadedData);
+        return $loadedData;
     }
+    
     public function saveJSON($data)
     {
         
-        
         $filePath = 'json/' .$this->recentFileName;
-        $contents = data;
+        //var_dump($this->recentFileName);
         
-        
-        
-        if(file_exists($filePath)) {
+        //if(file_exists($filePath)) {
             
-            $file = fopen($filePath, "w") or die($this->errors[] = "<strong>Unable to open file</strong> Failure...");
-            
-            
-            fwrite($filePath, $data);
-            
+            $file = fopen($filePath, 'w') or die($this->errors[] = "<strong>Unable to open file.</strong> Failure...");
+            fwrite($file, $data);
             fclose($file);
             
+            $this->messages[] = "<strong>File updated</strong> Everything is good.";
+            return true;
             
-            
-        } else {
-            $puts = file_put_contents($file, $contents, FILE_USE_INCLUDE_PATH);
-        }
-        
-        var_dump($puts);
-        
-        return true;
+
         
     }
+    
     public function submitToGMC()
     {
         return true;
