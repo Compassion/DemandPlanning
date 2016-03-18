@@ -32,7 +32,7 @@ class DemandPlanning
         
         return true;
     }
-    public function saveJSON(data)
+    public function saveJSON($data)
     {
         
         
@@ -43,12 +43,12 @@ class DemandPlanning
         
         if(file_exists($filePath)) {
             
-            $asd = fopen("newfile.txt", "w") or die("Unable to open file!");
-            $txt = "John Doe\n";
-            fwrite($myfile, $txt);
-            $txt = "Jane Doe\n";
-            fwrite($myfile, $txt);
-            fclose($myfile);
+            $file = fopen($filePath, "w") or die($this->errors[] = "<strong>Unable to open file</strong> Failure...");
+            
+            
+            fwrite($filePath, $data);
+            
+            fclose($file);
             
             
             
