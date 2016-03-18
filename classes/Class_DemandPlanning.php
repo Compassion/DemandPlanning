@@ -10,7 +10,21 @@ class DemandPlanning
     public function __construct()
     {
         // Create anything useful
+        $this->recentFileName = $this->generateFileName();
     }
+    
+    private function generateFileName()
+    {
+        $day = date('w');
+        // Week start date - Sunday.
+        $week_start = date('Y-m-d', strtotime('-'.$day.' days'));
+        //$week_end = date('Y-m-d', strtotime('+'.(6-$day).' days'));
+        
+        $this->recentFileName = $week_start ."_" .PARTNER_ID ."_DemandPlanning.json";
+        
+        return true;
+    }
+    
     public function loadJSON()
     {
         $string = file_get_contents("json/template.json");
@@ -21,26 +35,31 @@ class DemandPlanning
     public function saveJSON(data)
     {
         
-        $day = date('w');
-        // Week start date - Sunday.
-        $week_start = date('Y-m-d', strtotime('-'.$day.' days'));
-        //$week_end = date('Y-m-d', strtotime('+'.(6-$day).' days'));
         
-        $fileName = $week_start ."_" .PARTNER_ID ."_DemandPlanning.json";
-        
-        
-        $file = 'json/' .$fileName;
+        $filePath = 'json/' .$this->recentFileName;
         $contents = data;
         
         
         
-        if(file_exists($file));
+        if(file_exists($filePath)) {
+            
+            $asd = fopen("newfile.txt", "w") or die("Unable to open file!");
+            $txt = "John Doe\n";
+            fwrite($myfile, $txt);
+            $txt = "Jane Doe\n";
+            fwrite($myfile, $txt);
+            fclose($myfile);
+            
+            
+            
+        } else {
+            $puts = file_put_contents($file, $contents, FILE_USE_INCLUDE_PATH);
+        }
         
+        var_dump($puts);
         
-        
-        
-        //$puts = file_put_contents($file, $contents, FILE_USE_INCLUDE_PATH);
         return true;
+        
     }
     public function submitToGMC()
     {
