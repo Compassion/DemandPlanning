@@ -19,11 +19,28 @@ function formatDate(date) {
         day = '' + d.getDate(),
         year = d.getFullYear();
 
+    /* Remove these if statements if the date format does not require a 0 infront of single digit months or days */
     if (month.length < 2) month = '0' + month;
     if (day.length < 2) day = '0' + day;
 
     return [year, month, day].join('-');
 }
+
+/* Sorting the array */
+//weeks.sort(function(a,b) { return a.prop - b.prop })
+
+function sortByYmd(a,b) {
+    /* Sort a JS array by WeekStartDate property.
+        Invoke in a sort on an array i.e. array.sort(sortByYmd);
+    */
+    var x = new Date(a.WeekStartDate);
+    var y = new Date(b.WeekStartDate);
+    
+    /* Invert the x and y to make the sort go the other way */
+    return x-y;
+}
+
+
 
 /* 
     Build out a json object that can be used as a template. 
@@ -95,7 +112,9 @@ function parseDataTablesforJSON(dataTables) {
             }
         ]
     };
-
+    
+    // NEED TO FIX THIS TO REMOVE EXTRA ARRAY
+    // Should just push objects directly into the data object.
     var weeklyDemands = [];
     
     for(i = 0; i < dataTables.length; i++) {

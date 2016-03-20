@@ -92,7 +92,6 @@ class DemandPlanning
         return true;
     }
     
-    
     // Basic helper function which spits out any of the status or error messages.
     public function displayMessages()
     {

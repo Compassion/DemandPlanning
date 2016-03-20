@@ -23,6 +23,7 @@ Yeah it edits and saves. It is pretty sweet. We could turn off being able to edi
 ## Things to do
 
 - Need to get the JSON updating week on week. Haven't done that yet. Basically it needs to remove the most recently passed week and add a new blank week.
+- Clean up the weekly demands section of the JSON. I coded it a bit too hastily and added an extra unnecessary level of array. Will sort that out as soon as possible.
 - Set up the post to HQ.
 - Robustly test.
 
