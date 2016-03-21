@@ -22,10 +22,10 @@ Yeah it edits and saves. It is pretty sweet. We could turn off being able to edi
 
 ## Things to do
 
-- __Need to get the JSON updating week on week. Haven't done that yet. Basically it needs to remove the most recently passed week and add a new blank week.__ *DONE*
-- __Clean up the weekly demands section of the JSON. I coded it a bit too hastily and added an extra unnecessary level of array. Will sort that out as soon as possible.__ *DONE*
+- ~~Need to get the JSON updating week on week. Haven't done that yet. Basically it needs to remove the most recently passed week and add a new blank week.~~ *DONE*
+- ~~Clean up the weekly demands section of the JSON. I coded it a bit too hastily and added an extra unnecessary level of array. Will sort that out as soon as possible.~~ *DONE*
 - Refactor Javascript. This is pretty messay at the moment and needs to be cleaned up. It was built with haste.
-- Set up the post to HQ.
+- Set up the post to GMC.
 - Robustly test.
 
 ## Requirements
