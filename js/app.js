@@ -40,7 +40,81 @@ function sortByYmd(a,b) {
     return x-y;
 }
 
+//var last = array.slice(-1)[0];
 
+function removeTheOldBuildTheNew(data) {
+    var demands = data.GlobalPartnerWeeklyDemandRequest[0].GlobalPartnerWeeklyDemands;
+    
+    demands = demands.sort(sortByYmd);
+    //console.log(demands.length);
+    // remove past weeks
+    
+    var demandsLength = demands.length;
+
+    
+    var today = new Date(formatDate(new Date()));
+    
+    var weekStart = today.getDate() - (today.getDay()); 
+    var thisWeekStartDate = new Date(today.setDate(weekStart));
+    
+    var endDate = new Date(demands[0].WeekEndDate);
+    var startDate = new Date(demands[0].WeekStartDate);
+    
+    //console.log('This - ' + thisWeekStartDate);
+    //console.log('B end - ' + endDate);
+    
+    while (thisWeekStartDate > endDate) {
+        
+        // Delete most recent date.
+        demands.shift();
+        
+        // Reset the End date on the new date.
+        if (demands.length == 0) {
+            //console.log('IT IS ZERO!');
+            break;
+        }
+        endDate = new Date(demands[0].WeekEndDate);
+        
+        //console.log('SHIFT');
+    }
+    
+    // add new weeks to top back up to 78 weeks.
+    var requiredNumber = 78 - demands.length;
+    //console.log('required = ' + requiredNumber);
+    
+    if(requiredNumber !== 0) {
+        if(requiredNumber == 78) {
+            var newStartDate = formatDate(new Date());
+            
+        } else {
+            // Set new start date for items to be added to array.
+            var last = new Date(demands.slice(-1)[0].WeekEndDate);
+            last.setDate(last.getDate() +1);
+            newStartDate = formatDate(last);
+        }
+            //formatDate(new Date(last.getDate() + 1)); 
+        
+        //console.log('last - ' + last);
+        console.log('newStartDate - ' + newStartDate);
+        
+        var topUp = generateTopUpDateJSON(requiredNumber, newStartDate);
+        
+        demands = demands.concat(topUp);
+        
+        console.log('post concat');
+        console.log(demands);
+        
+        demands = demands.sort(sortByYmd);
+        data.GlobalPartnerWeeklyDemandRequest[0].GlobalPartnerWeeklyDemands = demands;
+        
+        generateMessage('info', 'Data Updated.', ' Your most recent file was at least '+requiredNumber+' weeks out of date. This has been updated');
+        return data;    
+        
+    } else {
+        
+        return data;
+    }
+}
 
 /* 
     Build out a json object that can be used as a template. 
@@ -72,12 +146,38 @@ function generateDateJSON(numWeeks) {
     return GlobalPartnerWeeklyDemandsTemplate;
 }
 
+function generateTopUpDateJSON(numWeeks, startDate) {
+    
+    var GlobalPartnerWeeklyDemandsTemplate = []
+    
+    for (var i = 0; i < numWeeks; i++ ) {
+        var d = new Date(startDate);
+        d = new Date(d.setDate(d.getDate() + 7*i));
+        
+        var first = d.getDate() - d.getDay(); 
+        
+        var firstday = new Date(d.setDate(first));
+        var lastday = new Date(d.setDate(firstday.getDate()+6));
+        
+        var obj = {};
+        obj.WeekStartDate = formatDate(firstday);
+        obj.WeekEndDate = formatDate(lastday);
+        obj.TotalDemand = 0; 
+        obj.ResupplyQuantity = 0;
+        
+        GlobalPartnerWeeklyDemandsTemplate.push(obj);
+    }
+    
+    return GlobalPartnerWeeklyDemandsTemplate;
+}
+
 /*
     Helper function to add the temp data to the temp JSON. 
     Easier than navigating the object every time.
 */
 function buildData(shell) {
-    shell.GlobalPartnerWeeklyDemandRequest[0].GlobalPartnerWeeklyDemands.push(generateDateJSON(78));
+    shell.GlobalPartnerWeeklyDemandRequest[0].GlobalPartnerWeeklyDemands = generateDateJSON(78);
+    
     return shell;
 }
 
@@ -86,7 +186,8 @@ function buildData(shell) {
     Need to transform this data into an easily tabular format which is what this does.
 */
 function parseJSONforDataTables(json) {
-    var data = json.GlobalPartnerWeeklyDemandRequest[0].GlobalPartnerWeeklyDemands[0];
+    //console.log(json);
+    var data = json.GlobalPartnerWeeklyDemandRequest[0].GlobalPartnerWeeklyDemands;
     // arr format = week number, start, end, demand, resupply
     var arrs = [];
     
@@ -113,8 +214,6 @@ function parseDataTablesforJSON(dataTables) {
         ]
     };
     
-    // NEED TO FIX THIS TO REMOVE EXTRA ARRAY
-    // Should just push objects directly into the data object.
     var weeklyDemands = [];
     
     for(i = 0; i < dataTables.length; i++) {
@@ -129,7 +228,7 @@ function parseDataTablesforJSON(dataTables) {
         weeklyDemands.push(obj);
     }
     
-    data.GlobalPartnerWeeklyDemandRequest[0].GlobalPartnerWeeklyDemands.push(weeklyDemands);
+    data.GlobalPartnerWeeklyDemandRequest[0].GlobalPartnerWeeklyDemands = weeklyDemands;
     
     return data;    
 }
@@ -162,12 +261,14 @@ function makeAjaxCall(thing, data) {
         data: data,
         success: function(resp) {
             //console.log(resp);
-            $('#ajaxResponse').html(resp);
+            var current = $('#ajaxResponse').html()
+            $('#ajaxResponse').html(resp + current);
         },
         error: function(resp) {
             console.log('Error');
             console.log(resp);
-            $('#ajaxResponse').html(resp);
+            var current = $('#ajaxResponse').html()
+            $('#ajaxResponse').html(resp + current);
         }
     }); // Ajax Call  
 }
@@ -181,10 +282,20 @@ function loadJSONdata() {
         url: "",
         data: data,
         success: function(resp) {
-            data = JSON.parse(resp);
-            //console.log(data);
-            //console.log(typeof(data));
-            table.fnAddData(parseJSONforDataTables(data));
+            var respJson = JSON.parse(resp);
+            data = JSON.parse(respJson.data);
+            
+            var updatedData = removeTheOldBuildTheNew(data);
+            //var updatedData = data;
+            /*console.log("-------------------------------------------------------");
+            console.log(data);
+            console.log(updatedData);
+            console.log("-------------------------------------------------------");*/
+            
+            table.fnAddData(parseJSONforDataTables(updatedData));
+            
+            var current = $('#ajaxResponse').html();
+            $('#ajaxResponse').html(respJson.msg + current);
         },
         error: function(resp) {
             console.log('Error');
@@ -192,7 +303,15 @@ function loadJSONdata() {
             $('#ajaxResponse').html(resp);
         }
     }); // Ajax Call  
+}
+
+function generateMessage(type, bold, msg) {
+     var alert = '<div class="alert alert-'+type+' alert-dismissible fade in" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong>'+bold+'</strong> '+msg+'</div>';
+
+    var current = $('#ajaxResponse').html();
     
+    $('#ajaxResponse').html(current + alert);
+    return true;
 }
 
 $(function() {
@@ -220,7 +339,7 @@ $(function() {
         $('tr td:nth-child(4), tr td:nth-child(5)').attr('contenteditable','true');
         tableRowUpdateListener(table);
         
-        console.log('change');
+        //console.log('change');
     });
     
     tableRowUpdateListener(table);

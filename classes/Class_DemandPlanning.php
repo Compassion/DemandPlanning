@@ -19,7 +19,6 @@ class DemandPlanning
         // Week start date - Sunday.
         $week_start = date('Y-m-d', strtotime('-'.$day.' days'));
         //$week_end = date('Y-m-d', strtotime('+'.(6-$day).' days'));
-        
         $this->recentFileName = $week_start ."_" .PARTNER_ID ."_DemandPlanning.json";
         
         return true;
@@ -65,26 +64,26 @@ class DemandPlanning
         //} 
         
         //var_dump($loadedData);
-        return $loadedData;
+        $resp = new stdClass();
+        $resp->data = $loadedData;
+        $resp->msg = '<div class="alert alert-success alert-dismissible fade in" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong>Succesfully loaded file.</strong> Loaded '.$latest_filename.'</div>';
+        
+        return json_encode($resp);
     }
     
     public function saveJSON($data)
     {
-        
         $filePath = 'json/' .$this->recentFileName;
         //var_dump($this->recentFileName);
         
         //if(file_exists($filePath)) {
-            
             $file = fopen($filePath, 'w') or die($this->errors[] = "<strong>Unable to open file.</strong> Failure...");
             fwrite($file, $data);
             fclose($file);
             
             $this->messages[] = "<strong>File updated</strong> Everything is good.";
-            return true;
-            
-
-        
+            return true;        
     }
     
     public function submitToGMC()

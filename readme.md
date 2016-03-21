@@ -18,12 +18,12 @@ The app stores and reads data in JSON files on the server. Each week it creates 
 
 ### Editable data
 
-Yeah it edits and saves. It is pretty sweet. We could turn off being able to editing the upcoming 8 week.
+Yeah it edits and saves. It is pretty sweet. We could turn off being able to edit the upcoming 8 week.
 
 ## Things to do
 
-- Need to get the JSON updating week on week. Haven't done that yet. Basically it needs to remove the most recently passed week and add a new blank week.
-- Clean up the weekly demands section of the JSON. I coded it a bit too hastily and added an extra unnecessary level of array. Will sort that out as soon as possible.
+- __Need to get the JSON updating week on week. Haven't done that yet. Basically it needs to remove the most recently passed week and add a new blank week.__ *DONE*
+- __Clean up the weekly demands section of the JSON. I coded it a bit too hastily and added an extra unnecessary level of array. Will sort that out as soon as possible.__ *DONE*
 - Set up the post to HQ.
 - Robustly test.
 
