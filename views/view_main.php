@@ -56,7 +56,7 @@
         </div>
         <div class="row">
             <div class="col-md-offset-2 col-md-8">
-                <button class="btn btn-primary btn-lg" id="export-btn">Submit to GME</button>
+                <button class="btn btn-primary btn-lg" id="export-btn">Submit to GMC</button>
                 <button class="btn btn-success btn-lg" id="save-btn">Save</button>
                 <p id="export-text"></p>
             </div>
