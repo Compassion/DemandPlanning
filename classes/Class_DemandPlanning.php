@@ -76,11 +76,11 @@ class DemandPlanning
         
         //if(file_exists($filePath)) {
             
-            $file = fopen($filePath, 'w') or die($this->errors[] = "<strong>Unable to open file.</strong> Failure...");
+            $file = fopen($filePath, 'w') or die($this->errors[] = "<strong>Unable to open file.</strong>");
             fwrite($file, $data);
             fclose($file);
             
-            $this->messages[] = "<strong>File updated</strong> Everything is good.";
+            $this->messages[] = "<strong>File updated successfully.</strong>";
             return true;
             
 
@@ -95,11 +95,9 @@ class DemandPlanning
     // Basic helper function which spits out any of the status or error messages.
     public function displayMessages()
     {
-        $alertTopDanger = '<div class="alert alert-danger alert-dismissible fade in" role="alert">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>';
+        $alertTopDanger = '<div class="mdl-js-snackbar mdl-snackbar" id="message"><div class="mdl-snackbar__text">';
 
-        $alertTopSuccess = '<div class="alert alert-success alert-dismissible fade in" role="alert">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>';
+        $alertTopSuccess = '<div class="mdl-js-snackbar mdl-snackbar" id="message"><div class="mdl-snackbar__text">';
 
         $alertEnd = '</div>';
         $alertErrorEnd = '</div>';

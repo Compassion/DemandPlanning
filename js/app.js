@@ -203,7 +203,6 @@ $(function() {
         "ordering":     false,
         "searching":    false,
         "info":         false,
-        "autowidth":    true,
     });
     /*
     data = buildData(data);
@@ -219,8 +218,6 @@ $(function() {
     table.on( 'draw.dt', function () {
         $('tr td:nth-child(4), tr td:nth-child(5)').attr('contenteditable','true');
         tableRowUpdateListener(table);
-        
-        console.log('change');
     });
     
     tableRowUpdateListener(table);

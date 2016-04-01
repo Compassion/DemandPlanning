@@ -17,6 +17,12 @@ tr > td:nth-child(4):focus, tr > td:nth-child(4):hover {
     box-shadow: inset 0px 0px 7px 1px rgba(222,222,222,1);
 }
 
+#export-text {
+font-size:8pt;
+padding-top:20px;
+text-align: left;
+}
+
 .tele-bg {
     background-image: url("tele.jpg");
     background-size: cover;
@@ -209,7 +215,7 @@ div.swipe-remove {
 .bold {
     font-weight: bold;
 }
-h1,h2,h3,h4,h5,p,select,input, span {
+h1,h2,h3,h4,h5,p,select,input {
     color: #333132;
 }
 h1,h2,h3,h4,h5 {
@@ -1092,9 +1098,7 @@ div.swipe-remove {
 .bold {
     font-weight: bold;
 }
-h1,h2,h3,h4,h5,p,select,input, span {
-    color: #333132;
-}
+
 h1,h2,h3,h4,h5 {
     font-family: "Tetria LT W01 Black", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: normal;
