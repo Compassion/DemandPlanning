@@ -4,6 +4,7 @@
     include("classes/config.php");
 
     //var_dump($_POST);
+
     if(isset($_POST['load'])) {
         $DemandPlanning = new DemandPlanning;
         echo $DemandPlanning->loadJSON();

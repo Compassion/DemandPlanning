@@ -26,6 +26,7 @@
                     <a class="mdl-navigation__link" href=""></a>
                 </nav>
             </div>
+<<<<<<< HEAD
         </header>
         <main class="mdl-layout__content">
         <div class="page-content">
@@ -54,6 +55,14 @@
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="export-btn" style="margin-left:5px;margin-right:5px">Export</button>
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="save-btn" style="margin-left:5px;margin-right:5px">Save</button>
                 <p id="export-text" ></p>
+=======
+        </div>
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+                <button class="btn btn-primary btn-lg" id="export-btn">Submit to GMC</button>
+                <button class="btn btn-success btn-lg" id="save-btn">Save</button>
+                <p id="export-text"></p>
+>>>>>>> bacbd101b787519bd99da6963d6037af7af1e624
             </div>
           <div class="mdl-layout-spacer"></div>
         </div>
