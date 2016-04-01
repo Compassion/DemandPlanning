@@ -85,17 +85,13 @@ class DemandPlanning
             
             $this->messages[] = "<strong>File updated successfully.</strong>";
             return true;
-            
 
-        
-=======
             $file = fopen($filePath, 'w') or die($this->errors[] = "<strong>Unable to open file.</strong> Failure...");
             fwrite($file, $data);
             fclose($file);
             
             $this->messages[] = "<strong>File updated</strong> Everything is good.";
             return true;        
->>>>>>> bacbd101b787519bd99da6963d6037af7af1e624
     }
     
     public function submitToGMC()

@@ -337,11 +337,7 @@ $(function() {
     table.on( 'draw.dt', function () {
         $('tr td:nth-child(4), tr td:nth-child(5)').attr('contenteditable','true');
         tableRowUpdateListener(table);
-<<<<<<< HEAD
-=======
-        
-        //console.log('change');
->>>>>>> bacbd101b787519bd99da6963d6037af7af1e624
+
     });
     
     tableRowUpdateListener(table);
