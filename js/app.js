@@ -317,12 +317,19 @@ function generateMessage(type, bold, msg) {
 
 
 function generateMessage(type, bold, msg) {
-    
     var thing = bold + " " + msg;
+    var notification = document.querySelector('.mdl-js-snackbar');
+        
+    notification.MaterialSnackbar.showSnackbar(
+      {
+        message: thing
+      }
+    );
+    /*
     showSnackbar(thing);
     return true;
+    */
 }
-
 
 
 function showSnackbar(msg) {
