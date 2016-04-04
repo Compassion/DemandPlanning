@@ -66,8 +66,9 @@ class DemandPlanning
         //var_dump($loadedData);
         $resp = new stdClass();
         $resp->data = $loadedData;
-        $resp->msg = '<div class="alert alert-success alert-dismissible fade in" role="alert">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong>Succesfully loaded file.</strong> Loaded '.$latest_filename.'</div>';
+        /*$resp->msg = '<div class="alert alert-success alert-dismissible fade in" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong>Succesfully loaded file.</strong> Loaded '.$latest_filename.'</div>';*/
+        $resp->msg = 'Succesfully loaded file ' .$latest_filename .'.';
         
         return json_encode($resp);
     }

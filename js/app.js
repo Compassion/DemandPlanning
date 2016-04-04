@@ -107,7 +107,7 @@ function removeTheOldBuildTheNew(data) {
         demands = demands.sort(sortByYmd);
         data.GlobalPartnerWeeklyDemandRequest[0].GlobalPartnerWeeklyDemands = demands;
         
-        generateMessage('info', 'Data Updated.', ' Your most recent file was at least '+requiredNumber+' weeks out of date. This has been updated');
+        generateMessage('info', 'Data Updated.', ' Your most recent file was at least '+requiredNumber+' weeks out of date.');
         return data;    
         
     } else {
@@ -284,7 +284,7 @@ function loadJSONdata() {
         success: function(resp) {
             var respJson = JSON.parse(resp);
             data = JSON.parse(respJson.data);
-            
+            generateMessage('','',respJson.msg);
             var updatedData = removeTheOldBuildTheNew(data);
             //var updatedData = data;
             /*console.log("-------------------------------------------------------");
@@ -293,9 +293,9 @@ function loadJSONdata() {
             console.log("-------------------------------------------------------");*/
             
             table.fnAddData(parseJSONforDataTables(updatedData));
+            //var current = $('#ajaxResponse').html();
+            //$('#ajaxResponse').html(respJson.msg + current);
             
-            var current = $('#ajaxResponse').html();
-            $('#ajaxResponse').html(respJson.msg + current);
         },
         error: function(resp) {
             console.log('Error');
@@ -305,6 +305,7 @@ function loadJSONdata() {
     }); // Ajax Call  
 }
 
+/*
 function generateMessage(type, bold, msg) {
      var alert = '<div class="alert alert-'+type+' alert-dismissible fade in" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong>'+bold+'</strong> '+msg+'</div>';
 
@@ -312,16 +313,43 @@ function generateMessage(type, bold, msg) {
     
     $('#ajaxResponse').html(current + alert);
     return true;
+}*/
+
+
+function generateMessage(type, bold, msg) {
+    
+    var thing = bold + " " + msg;
+    showSnackbar(thing);
+    return true;
+}
+
+
+
+function showSnackbar(msg) {
+    var notification = document.querySelector('.mdl-js-snackbar');
+        
+    notification.MaterialSnackbar.showSnackbar(
+      {
+        message: msg
+      }
+    );
 }
 
 $(function() {
     //data = JSON.parse(loadJSONdata());
     
     table = $('#demandTable').dataTable( {
-        "paging":       true,
-        "ordering":     false,
-        "searching":    false,
-        "info":         false,
+        //"paging":       true,
+        "ordering":     true,
+        "searching":    true,
+        "info":         true,
+        "pagingType" :  "numbers",
+        "columnDefs" : [
+            {
+                targets: [ 0, 1, 2 ],
+                className: 'mdl-data-table__cell--non-numeric'
+            }
+        ]
     });
     /*
     data = buildData(data);
@@ -351,6 +379,5 @@ $(function() {
         var data = JSON.stringify(parseDataTablesforJSON(table.fnGetData()));
         makeAjaxCall('save', data); 
     });
-    
     
 });
