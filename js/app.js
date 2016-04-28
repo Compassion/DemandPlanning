@@ -380,11 +380,22 @@ $(function() {
     
     $('#export-btn').click(function(e) {
         $('#export-text').text(JSON.stringify(parseDataTablesforJSON(table.fnGetData())));
+        
+        // Starting to setup the REST service call
+        $.ajax({
+            url: 'https://api2.compassion.com/test/ci/v2/globalpartners/demandplanning',
+            type: 'POST',
+            header: 'Content-Type: application/json',
+            data: JSON.stringify(parseDataTablesforJSON(table.fnGetData())),
+            success: function() { showSnackbar('The message has been sent successfully.'); },
+            error: function() { showSnackbar('The message was unsuccessful.'); }
+        });
     });
     
     $('#save-btn').click(function(e) {
         var data = JSON.stringify(parseDataTablesforJSON(table.fnGetData()));
-        makeAjaxCall('save', data); 
+        makeAjaxCall('save', data);
+        showSnackbar('Data has been saved.')
     });
     
 });

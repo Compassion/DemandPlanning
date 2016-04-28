@@ -32,8 +32,8 @@
         <main class="mdl-layout__content">
             <div class="page-content mdl-layout__tab-panel is-active">
                 <div class="section--center mdl-grid mdl-grid--no-spacing">
-                    <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-                    <div class="mdl-cell mdl-cell--8-col">
+                    <div class="mdl-cell mdl-cell--3-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+                    <div class="mdl-cell mdl-cell--6-col">
                         <div class="" id="ajaxResponse"></div>
                         <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" id="demandTable" width="100%">
                             <thead>
@@ -49,9 +49,9 @@
                         </table>
                     </div>
                 </div>
-                <div class="section--center mdl-grid mdl-grid--no-spacing">
-                    <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-                    <div class="mdl-cell mdl-cell--8-col mdl-typography--text-center">
+                <div class="section--center mdl-grid">
+                    <div class="mdl-cell mdl-cell--3-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+                    <div class="mdl-cell mdl-cell--6-col mdl-typography--text-center">
                         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="export-btn">Export</button>
                         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="save-btn">Save</button>
                         <p id="export-text" ></p>
