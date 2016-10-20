@@ -9,7 +9,7 @@ define('ENVIRONMENT', 'test');
 /*
     Set your partner id.
 */
-define('PARTNER_ID', 'AU');
+define('PARTNER_ID', 'NL');
 
 
 /*

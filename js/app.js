@@ -2,12 +2,11 @@
     Most of the code here is to generate placeholder values.
 */
 var data = {
-    'GlobalPartnerWeeklyDemandRequest' : [
+    'GlobalPartnerWeeklyDemandRequest' :
         {
-            'GlobalPartnerId' : window.GlobalPartnerId,
-            'GlobalPartnerWeeklyDemands' : []
+            'GlobalPartner_ID' : window.GlobalPartnerId,
+            'GlobalPartnerWeeklyDemandRequestList' : []
         }
-    ]
 };
 
 var table;
@@ -43,7 +42,7 @@ function sortByYmd(a,b) {
 //var last = array.slice(-1)[0];
 
 function removeTheOldBuildTheNew(data) {
-    var demands = data.GlobalPartnerWeeklyDemandRequest[0].GlobalPartnerWeeklyDemands;
+    var demands = data.GlobalPartnerWeeklyDemandRequest.GlobalPartnerWeeklyDemandRequestList;
     
     demands = demands.sort(sortByYmd);
     //console.log(demands.length);
@@ -105,7 +104,7 @@ function removeTheOldBuildTheNew(data) {
         console.log(demands);
         
         demands = demands.sort(sortByYmd);
-        data.GlobalPartnerWeeklyDemandRequest[0].GlobalPartnerWeeklyDemands = demands;
+        data.GlobalPartnerWeeklyDemandRequest.GlobalPartnerWeeklyDemandRequestList = demands;
         
         generateMessage('info', 'Data Updated.', ' Your most recent file was at least '+requiredNumber+' weeks out of date.');
         return data;    
@@ -176,7 +175,7 @@ function generateTopUpDateJSON(numWeeks, startDate) {
     Easier than navigating the object every time.
 */
 function buildData(shell) {
-    shell.GlobalPartnerWeeklyDemandRequest[0].GlobalPartnerWeeklyDemands = generateDateJSON(78);
+    shell.GlobalPartnerWeeklyDemandRequest.GlobalPartnerWeeklyDemandRequestList = generateDateJSON(78);
     
     return shell;
 }
@@ -187,7 +186,7 @@ function buildData(shell) {
 */
 function parseJSONforDataTables(json) {
     //console.log(json);
-    var data = json.GlobalPartnerWeeklyDemandRequest[0].GlobalPartnerWeeklyDemands;
+    var data = json.GlobalPartnerWeeklyDemandRequest.GlobalPartnerWeeklyDemandRequestList;
     // arr format = week number, start, end, demand, resupply
     var arrs = [];
     
@@ -206,12 +205,11 @@ function parseJSONforDataTables(json) {
 
 function parseDataTablesforJSON(dataTables) {
     var data = {
-        'GlobalPartnerWeeklyDemandRequest' : [
+        'GlobalPartnerWeeklyDemandRequest' :
             {
-                'GlobalPartnerId' : window.GlobalPartnerId,
-                'GlobalPartnerWeeklyDemands' : []
+                'GlobalPartner_ID' : window.GlobalPartnerId,
+                'GlobalPartnerWeeklyDemandRequestList' : []
             }
-        ]
     };
     
     var weeklyDemands = [];
@@ -228,7 +226,7 @@ function parseDataTablesforJSON(dataTables) {
         weeklyDemands.push(obj);
     }
     
-    data.GlobalPartnerWeeklyDemandRequest[0].GlobalPartnerWeeklyDemands = weeklyDemands;
+    data.GlobalPartnerWeeklyDemandRequest.GlobalPartnerWeeklyDemandRequestList = weeklyDemands;
     
     return data;    
 }
